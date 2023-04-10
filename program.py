@@ -22,6 +22,8 @@ import configparser # Config dosyalarının okunması için kullanılır (for re
 
 config = configparser.ConfigParser()   
 
+surum = 'v1.00_20230410'
+
 def csvac(yol):
 
     csvacilacak = open(yol, 'r', encoding='utf-8')
@@ -100,8 +102,6 @@ if os.path.exists('istemciler.csv') and os.path.exists('devkutup.conf'):
 
     config.read_file(open(r'devkutup.conf'))
 
-    surum = 'v1.00_20230401'
-
     try:
 
         mysqlport = int(config.get('mysql-giris', 'port'))
@@ -151,9 +151,9 @@ elif os.path.exists('istemciler.csv'):
 
     kapatmatercih =  1
 
-elif os.path.exists('devkutup.conf'):
+elif os.path.exists('devkutup.conf') and istemci == 1:
 
-    gka.popup('İstemci listesi (istemciler.csv) yüklenemedi.\nİstemci listesi yüklenmesi zorunludur.', title='Kritik Hata')
+    gka.popup('İstemci listesi (istemciler.csv) yüklenemedi.\nİstemci listesi yüklenmesi yapılandırma dosyasında "istemci = 1" olarak ayarlandığında zorunludur.', title='Kritik Hata')
 
     sys.exit()
 

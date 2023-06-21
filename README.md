@@ -1,5 +1,13 @@
 # DEVKÜTÜP
 Kütüphane otomasyon programı. Resmî ve şahsî kütüphaneler için tasarlanmıştır.
+- [Çoklu İstemci Ekranı](https://github.com/libsoykan-dev/devkutup#%C3%A7oklu-i%CC%87stemci-ekran%C4%B1-v200_20230406-ve-%C3%BCst%C3%BC)
+- [Giriş Ekranı](https://github.com/libsoykan-dev/devkutup#giri%C5%9F-ekran%C4%B1)
+- [Ana Ekran](https://github.com/libsoykan-dev/devkutup#ana-ekran)
+- [Kayıt İşlemleri (Kaydetme)](https://github.com/libsoykan-dev/devkutup#kaydetme)
+- [Kayıt İşlemleri (Silme)](https://github.com/libsoykan-dev/devkutup#kay%C4%B1t-silme)
+- [Kullanıcılar](https://github.com/libsoykan-dev/devkutup#kullan%C4%B1c%C4%B1lar)
+- [Yapılandırma](https://github.com/libsoykan-dev/devkutup#yap%C4%B1land%C4%B1rma-dosyas%C4%B1-devkutupconf)
+- [Lisans](https://github.com/libsoykan-dev/devkutup#lisans)
 
 # Çoklu İstemci Ekranı (v2.00_20230406 ve üstü)
 ![resim](https://user-images.githubusercontent.com/103260281/230802018-0adb57da-b739-4e53-b2ae-30af3e693edb.png)

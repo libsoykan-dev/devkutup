@@ -80,15 +80,15 @@ Linux tabanlı sistemlerde ise masaüstü yöneticisinden sonra otomatik çalı�
 
 Neticede varsayılan olarak
 
-[mysql-giris]
-ip = localhost
-kullaniciadi = root
-sifre =
-port = 3311
-[diger]
-tema = Black
-kapatmatercih = 1
-istemci = 1
+>[mysql-giris]<br />
+>ip = localhost<br />
+>kullaniciadi = root<br />
+>sifre =<br />
+>port = 3311<br />
+>[diger]<br />
+>tema = Black<br />
+>kapatmatercih = 1<br />
+>istemci = 1<br />
 
 ayarları geçerlidir. Eğer yapılandırma dosyanız mevcut değilse bu ayarlarla program başlatılır.
 

@@ -12,9 +12,7 @@ Kütüphane otomasyon programı. Resmî ve şahsî kütüphaneler için tasarlan
 # Çoklu İstemci Ekranı (v2.00_20230406 ve üstü)
 ![resim](https://user-images.githubusercontent.com/103260281/230802018-0adb57da-b739-4e53-b2ae-30af3e693edb.png)
 
-Programın çoklu istemci özelliği sayesinde birden fazla kurum tek bir sunucuya bağlanarak farklı istemcilerdeki kitapları ve üyeleri hangi kurumda kayıtlı olduğuyla birlikte görüntüleyebilir. Yani "BİR İDAM MAHKUMUNUN SON GÜNÜ" adlı kitap herhangi bir istemciden sorgulandığında kitabın bulunduğu kurum ile birlikte kitabın detayları listelenir. Aynı durum üye sorgusu için de geçerlidir.
-
-
+Programın çoklu istemci özelliği sayesinde birden fazla kurum tek bir sunucuya bağlanarak farklı istemcilerdeki kayıtları ve üyeleri hangi kurumda kayıtlı olduğuyla birlikte görüntüleyebilir. Yani "BİR İDAM MAHKUMUNUN SON GÜNÜ" adlı kitap herhangi bir istemciden sorgulandığında kitabın detayları listelenir. Aynı durum üye sorgusu için de geçerlidir.
 
 Programa istediğiniz kadar istemciyi ana klasörde "istemciler.csv" dosyasına "A Kütüphanesi, akutuphanesikodu" gibi satırlar ekleyerek güncelleyebilirsiniz. Bu özellik devkutup.conf dosyasına eklenecek "istemci = 1" ile aktif edilebilir. Eğer aktif edilmezse bu ekran program tarafından otomatik olarak atlanır ve giriş ekranına geçiş yapılır.
 
@@ -24,13 +22,13 @@ Programa istediğiniz kadar istemciyi ana klasörde "istemciler.csv" dosyasına 
 Kullanıcı adı ve şifre girilerek giriş yapılan ekrandır. Varsayılan hesap için kullanıcı adı "DEVKÜTÜP", şifre "12345" olup bu hesap yönetici yetkilerine sahiptir.
 
 # Ana Ekran
-![resim](https://user-images.githubusercontent.com/103260281/229325788-5b2a6437-eb10-440c-ac2d-a81946804e52.png)
+![resim](https://github.com/libsoykan-dev/devkutup/assets/103260281/37692ff7-5d37-4b6c-9387-6376445b234e)
 
-Ana ekranda kitap, üye, ve kullanıcı işlemleri; kitap teslim edeceklerin veya etmeyenlerin listesi ile bu listeyi dışa aktarmaya yarayan form yer almaktadır.
+Ana ekranda kayıt, üye, kullanıcı, emanet ve rapor işlemleri yer almaktadır.
 # Kaydetme
-![resim](https://user-images.githubusercontent.com/103260281/229325489-e24d4774-50e1-464b-8209-23abc80f1097.png)
+![resim](https://github.com/libsoykan-dev/devkutup/assets/103260281/d51b7ea0-a11d-4e79-9be1-fc1a43510b36)
 
-Kayıt sekmelerinde kaydedilecek değerler girilerek "Ekle"ye tıklanır. Toplu kayıt için excel dosyalarını içe aktarabilirsiniz. Kaydetmeye karar verdiğinizde "Kaydet" butonuna tıklarsınız. Hatalı bir giriş yapıp "Ekle"ye tıkladığınızda hatalı satırı seçip "Satırı Sil" tıklayabilirsiniz.
+Kayıt sekmelerinde kaydedilecek değerler girilerek "Ekle"ye tıklanır. Toplu kayıt için excel dosyalarını içe aktarabilirsiniz. Kaydetmeye karar verdiğinizde "Kaydet" butonuna tıklarsınız. Hatalı bir giriş yapıp "Ekle"ye tıkladığınızda hatalı satırı seçip "Satırı Sil" tıklayabilirsiniz. Ek niteliklere 32768 harfi geçmeyecek şekilde istediğiniz bilgiyi girebilirsiniz.
 # Kayıt Silme
 ![resim](https://user-images.githubusercontent.com/103260281/230803840-3929de9a-2b00-4c14-900c-a682c851a488.png)
 
@@ -40,9 +38,7 @@ Silme işlemleri için de silmek istediğiniz değer(ler)i forma girip "Sorgula"
 
 MYSQL veri tabanında "<istemci adı>kullanicilar" olarak barındırılan veri tabanında kullaniciadi, sifre ve yetki olmak üzere 3 adet sütün kayıtlıdır. Bu sütünlardan ilk ikisi kullanıcı adı ve şifreyi barındırırken sonuncusu yani yetki sütunu kullanıcının yetkisini belirler. yetki sütununa "Yönetici, Görevli, Ziyaretçi" olmak üzere toplamda 3 adet yetki girişi yapılabilir.
 
-![resim](https://user-images.githubusercontent.com/103260281/230802846-cf0d39ae-4f33-4df1-a56d-7e0993826908.png)
-
-Yukarıdaki tabloda hesapların erişim düzeyleri verilmiştir. Yönetici tüm ekranlara erişebilirken Görevli sadece Kitap Alma ve Verme, Kaydetme ve Sorgulama gibi temel ekranlara erişebilir. Ziyaretçiler yalnızca kitap sorgulayabilir. Bu yetki düzeylerinin erişim izinleri if koşullarındaki "yonetici" değişkeni Görevli, Yönetici ve Ziyaretçi için sırasıyla 0, 1 veya 2 şeklinde ayarlanarak değiştirilebilir. Varsayılan Kullanıcı Adı "DEVKÜTÜP", şifre ise "12345"tir. Eğer tüm kullanıcıları silerseniz program kilitlenmemek için varsayılan kullanıcıyı tekrar oluşturur.
+Yönetici tüm ekranlara erişebilirken Görevli sadece Emanet Alma ve Verme, Kaydetme ve Sorgulama gibi temel ekranlara erişebilir. Ziyaretçiler yalnızca kayıt sorgulayabilir. Bu yetki düzeylerinin erişim izinleri if koşullarındaki "yonetici" değişkeni Görevli, Yönetici ve Ziyaretçi için sırasıyla 0, 1 veya 2 şeklinde ayarlanarak değiştirilebilir. Varsayılan Kullanıcı Adı "DEVKÜTÜP", şifre ise "12345"tir. Eğer tüm kullanıcıları silerseniz program kilitlenmemek için varsayılan kullanıcıyı tekrar oluşturur.
 
 # Yapılandırma Dosyası (devkutup.conf)
 Bu dosya 2 bölüm içerir: mysql-giris ve diger

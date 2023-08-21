@@ -2,25 +2,27 @@
 ## Atıfta bulunurken 'libsoykan-dev' veya 'Naim Salih SOYKAN' olarak belirtebilirsiniz.
 ## Lisansın bir kopyasını program ile birlikte edinmiş olmanız gerekir. Eğer edinmediyseniz: https://creativecommons.org/licenses/by-nc/4.0/deed.tr
 
-import PySimpleGUI as gka
+import PySimpleGUI as gka # Grafik kullanıcı arabirimi (gka) içinn kullanılır
 
-import mysql.connector # MYSQL temel fonksiyonlarının ve sorguların çalıştırılması için kullanılır (for running MYSQL queries)
+import mysql.connector # MYSQL temel fonksiyonlarının ve sorguların çalıştırılması için kullanılır
 
-import time
+from datetime import datetime # Zaman damgalarını işlemek için kullanılır
 
-import pandas as pd # Excel dosyalarını dönüştürmek için kullanılır (for converting excel files)
+import time # Zaman damgalarını unix formatında elde etmek için kullanılır
 
-import csv # Dönüştürülen excel dosyalarını tabloya aktarmak için kullanılır (for importing converted excel files to python list format)
+import pandas as pd # Excel dosyalarını dönüştürmek için kullanılır
 
-import os # Dosya sistemi fonksiyonlarının işletilmesi için kullanılır (for implementing file system functions)
+import csv # Dönüştürülen excel dosyalarını tabloya aktarmak için kullanılır
+
+import os # Dosya sistemi fonksiyonlarının işletilmesi için kullanılır
 
 import sys # Sys fonksiyonları
 
-import configparser # Config dosyalarının okunması için kullanılır (for reading config files)
+import configparser # Config dosyalarının okunması için kullanılır
 
 config = configparser.ConfigParser()
 
-surum = 'v1.17_20230820'
+surum = 'v1.18_20230821'
 
 ################################################################################################################################
 
@@ -48,7 +50,7 @@ def mevcutmu(tablo, kosul):
 
     except mysql.connector.Error as hata:
 
-        gka.popup('MYSQL Hatası:\n' + hata, title='Hata')
+        gka.popup('MYSQL Hatası:\n' + hata, keep_on_top=True , title='Hata')
 
         return None
 
@@ -74,7 +76,7 @@ def olustur(tablo, liste):
 
     except mysql.connector.Error as hata:
 
-        gka.popup('MYSQL Hatası:\n' + hata, title='Hata')
+        gka.popup('MYSQL Hatası:\n' + hata, keep_on_top=True , title='Hata')
 
 def sil(tablo, kosul):
 
@@ -86,7 +88,7 @@ def sil(tablo, kosul):
 
         except mysql.connector.Error as hata:
 
-            gka.popup('MYSQL Hatası:\n' + hata, title='Hata')
+            gka.popup('MYSQL Hatası:\n' + hata, keep_on_top=True , title='Hata')
 
 def sorgula(tablo, kosul):
 
@@ -98,7 +100,7 @@ def sorgula(tablo, kosul):
 
         except mysql.connector.Error as hata:
 
-            gka.popup('MYSQL Hatası:\n' + str(hata), title='Hata')
+            gka.popup('MYSQL Hatası:\n' + str(hata), keep_on_top=True , title='Hata')
 
             [['Hata']]
 
@@ -118,7 +120,7 @@ def istemciolustur(istemciadi):
 
     except mysql.connector.Error as hata:
 
-        gka.popup('MYSQL Hatası:\n' + hata, title='Hata')
+        gka.popup('MYSQL Hatası:\n' + hata, keep_on_top=True , title='Hata')
 
 ################################################################################################################################
 
@@ -150,7 +152,7 @@ if os.path.exists('istemciler.csv') and os.path.exists('devkutup.conf'):
 
     except configparser.Error as hata:
 
-        gka.popup('Config dosyası yanlış:\n' + str(hata), title='Kritik Hata')
+        gka.popup('Config dosyası yanlış:\n' + str(hata), keep_on_top=True , title='Kritik Hata')
 
         sys.exit()
 
@@ -165,7 +167,7 @@ elif os.path.exists('istemciler.csv'):
     password = ""
     [diger]
     tema = "Black"
-    kapatmatercih = 1''', title='Uyarı')
+    kapatmatercih = 1''', keep_on_top=True , title='Uyarı')
 
     mysqlport = 3311
 
@@ -183,7 +185,7 @@ elif os.path.exists('istemciler.csv'):
 
 elif os.path.exists('devkutup.conf') and istemci == 1:
 
-    gka.popup('İstemci listesi (istemciler.csv) yüklenemedi.\nİstemci listesi yüklenmesi yapılandırma dosyasında "istemci = 1" olarak ayarlandığında zorunludur.', title='Kritik Hata')
+    gka.popup('İstemci listesi (istemciler.csv) yüklenemedi.\nİstemci listesi yüklenmesi yapılandırma dosyasında "istemci = 1" olarak ayarlandığında zorunludur.', keep_on_top=True , title='Kritik Hata')
 
     sys.exit()
 
@@ -207,7 +209,7 @@ Bu dosyaları oluşturmadıysanız şimdi oluşturunuz.\nAşağıdaki gibi:
     İstemci Adı, istemciadi
     ...
     
-istemciler.csv, config dosyasında istemci = 0 olarak ayarlandığında zorunlu değildir.''', title='Kritik Hata')
+istemciler.csv, config dosyasında istemci = 0 olarak ayarlandığında zorunlu değildir.''', keep_on_top=True , title='Kritik Hata')
 
     sys.exit()
 
@@ -229,7 +231,7 @@ try:
 
 except mysql.connector.Error as hata:
 
-    gka.popup('MYSQL Hatası:\n' + str(hata), title='Kritik Hata')
+    gka.popup('MYSQL Hatası:\n' + str(hata), keep_on_top=True , title='Kritik Hata')
 
     sys.exit()
 
@@ -247,7 +249,7 @@ girispencere = [[gka.Text('Kullanıcı Adı', s=(10,1)), gka.Input(key='kullanic
                 [gka.Text('Şifre', s=(10,1)), gka.Input(key='sifre')],
                 [gka.Button('Giriş Yap', key='girisyap')]]
 
-girispencere = gka.Window('DEVKÜTÜP ' + surum + ' Giriş Yap', girispencere, enable_close_attempted_event=True, finalize=True)
+girispencere = gka.Window('DEVKÜTÜP ' + surum + ' Giriş Yap', girispencere, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 girispencere.Hide()
 
@@ -257,7 +259,7 @@ def girisyap(kayitlar, kullanicilar, uyeler, emanet):
 
         mysqlsorgucalistir('INSERT INTO ' + kullanicilar + ' VALUES ("DEVKÜTÜP", "12345", "Yönetici");')
 
-        gka.popup('Kayıtlı kullanıcı yok. Varsayılan kullanıcı,\nKullanıcı Adı: DEVKÜTÜP\nŞifre: 12345\nYetkiler: Yönetici\noluşturuldu.', title='Uyarı')
+        gka.popup('Kayıtlı kullanıcı yok. Varsayılan kullanıcı,\nKullanıcı Adı: DEVKÜTÜP\nŞifre: 12345\nYetkiler: Yönetici\noluşturuldu.', keep_on_top=True , title='Uyarı')
 
     girispencere.UnHide()
 
@@ -279,7 +281,9 @@ def girisyap(kayitlar, kullanicilar, uyeler, emanet):
 
             if '"' in kullaniciadi or '"' in sifre:
 
-                gka.popup("Senin koyun gütmüşlüğün kadar benim çoban dövmüşlüğüm vardır yeğenim. Akıllı ol!", title="Hoop birader ne iş?")
+                gka.popup("Senin koyun gütmüşlüğün kadar benim çoban dövmüşlüğüm vardır yeğenim. Akıllı ol!", keep_on_top=True , title="Hoop birader ne iş?")
+
+                girispencere.Hide()
 
                 break
 
@@ -305,7 +309,7 @@ def girisyap(kayitlar, kullanicilar, uyeler, emanet):
 
             else:
 
-                gka.popup('Kullanıcı Adı veya Şifre yanlış.', title='Hata')
+                gka.popup('Kullanıcı Adı veya Şifre yanlış.', keep_on_top=True , title='Hata')
 
 ################################################################################################################################
 
@@ -358,7 +362,7 @@ def program(kayitlar, kullanicilar, uyeler, emanet, yonetici):
 
         if anafiil == 'uyesil' and yonetici != 2:
 
-            uyesil(uyeler=uyeler, emanet=emanet, yonetici=yonetici)
+            uyesil(uyeler=uyeler, yonetici=yonetici)
 
         if anafiil == 'emanetal' and yonetici != 2:
 
@@ -398,7 +402,7 @@ kayitolusturduzen = [[gka.Text('Kayıt No.', s=(10,1)), gka.Input(key='kayitolus
                      [gka.Table([], ['Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu', 'Ek Nitelikler'], num_rows=20, key='kayitolusturliste', def_col_width=13, auto_size_columns=False, enable_events=True)],
                      [gka.Button('Kaydet', key='kayitolusturonay'), gka.Button('Satırı Sil', key='kayitolusturlistesil'), gka.Text(key='kayitolusturdurum')]]
 
-kayitolusturpencere = gka.Window('Kayıt Kaydet', kayitolusturduzen, enable_close_attempted_event=True, finalize=True)
+kayitolusturpencere = gka.Window('Kayıt Kaydet', kayitolusturduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 kayitolusturpencere.Hide()
 
@@ -432,33 +436,39 @@ def kayitolustur(kayitlar):
 
             if kayitolusturbarkod and kayitolusturadi and kayitolusturkaynagi and kayitolusturyayimci and kayitolusturturu and kayitolusturdolapkodu and kayitolusturnitelikler:
 
-                kayitolusturpensatir = []
+                if '"' not in kayitolusturbarkod and '"' not in kayitolusturadi and '"' not in kayitolusturkaynagi and '"' not in kayitolusturyayimci and '"' not in kayitolusturturu and '"' not in kayitolusturdolapkodu and '"' not in kayitolusturnitelikler:
 
-                kayitolusturbarkodeslesme = 0
+                    kayitolusturpensatir = []
 
-                for i in [kayitolusturbarkod, kayitolusturadi, kayitolusturkaynagi, kayitolusturyayimci, kayitolusturturu, kayitolusturdolapkodu, kayitolusturnitelikler]:
+                    kayitolusturbarkodeslesme = 0
 
-                    kayitolusturpensatir.append(i)
+                    for i in [kayitolusturbarkod, kayitolusturadi, kayitolusturkaynagi, kayitolusturyayimci, kayitolusturturu, kayitolusturdolapkodu, kayitolusturnitelikler]:
 
-                for i in range(0, len(kayitolusturpenliste)):
+                        kayitolusturpensatir.append(i)
 
-                    if kayitolusturpenliste[i][0] == kayitolusturbarkod:
+                    for i in range(0, len(kayitolusturpenliste)):
 
-                        kayitolusturbarkodeslesme += 1
+                        if kayitolusturpenliste[i][0] == kayitolusturbarkod:
 
-                if kayitolusturbarkodeslesme > 0 or mevcutmu(kayitlar, ('kayitno="' + str(kayitolusturbarkod) + '"')):
+                            kayitolusturbarkodeslesme += 1
 
-                    gka.popup(kayitolusturbarkod + ' No.lu kayıt zaten oluşturulmuş.\nKayıt No. eşsiz olmalıdır.', title='Hata')
+                    if kayitolusturbarkodeslesme > 0 or mevcutmu(kayitlar, ('kayitno="' + str(kayitolusturbarkod) + '"')):
 
-                else:
+                        gka.popup(kayitolusturbarkod + ' No.lu kayıt zaten oluşturulmuş.\nKayıt No. eşsiz olmalıdır.', keep_on_top=True , title='Hata')
 
-                    kayitolusturpenliste.append(kayitolusturpensatir)
+                    else:
 
-                kayitolusturpencere['kayitolusturliste'].update(values=kayitolusturpenliste)
+                        kayitolusturpenliste.append(kayitolusturpensatir)
+
+                    kayitolusturpencere['kayitolusturliste'].update(values=kayitolusturpenliste)
+
+                elif '"' in kayitolusturbarkod or '"' in kayitolusturadi or '"' in kayitolusturkaynagi or '"' in kayitolusturyayimci or '"' in kayitolusturturu or '"' in kayitolusturdolapkodu or '"' in kayitolusturnitelikler: 
+
+                    gka.popup('Geçersiz karakter kullandınız.', keep_on_top=True , title='Hata')
 
             else:
 
-                gka.popup('Boş alan kalamaz!', title='Hata')
+                gka.popup('Boş alan kalamaz!', keep_on_top=True , title='Hata')
 
         if kayitolusturfiil == 'kayitolusturonay' and len(kayitolusturpenliste) > 0:
                 
@@ -472,7 +482,7 @@ def kayitolustur(kayitlar):
 
         elif kayitolusturfiil == 'kayitolusturonay':
 
-            gka.popup('Kaydınız zaten işlendi veya kayıt yapmadınız.', title='Hata')
+            gka.popup('Kaydınız zaten işlendi veya kayıt yapmadınız.', keep_on_top=True , title='Hata')
 
         if kayitolusturfiil == 'kayitolusturexcel':
 
@@ -484,7 +494,7 @@ def kayitolustur(kayitlar):
 
             kayitolusturlistesecilen = kayitolusturdeger['kayitolusturliste'][0]
 
-        if kayitolusturfiil == 'kayitolusturlistesil' and kayitolusturlistesecilen != -1 and gka.popup_yes_no(str(kayitolusturpenliste[kayitolusturlistesecilen][0]) + ' No.lu kayit ön kayıt tablosundan silinecek.\nOnaylıyor musunuz?') == 'Yes':
+        if kayitolusturfiil == 'kayitolusturlistesil' and kayitolusturlistesecilen != -1 and gka.popup_yes_no(str(kayitolusturpenliste[kayitolusturlistesecilen][0]) + ' No.lu kayit ön kayıt tablosundan silinecek.\nOnaylıyor musunuz?', keep_on_top=True, title='Onay') == 'Yes':
         
             kayitolusturpenliste.pop(kayitolusturlistesecilen)
 
@@ -504,15 +514,15 @@ def kayitolustur(kayitlar):
 
 ################################################################################################################################
 
-kayitsilduzen = [[gka.Text('Kayıt No.', s=(10,1)), gka.Input(key='kayitsilbarkod'), gka.Text('Adı', s=(10,1)), gka.Input(key='kayitsiladi')],
-                  [gka.Text('Yazarı', s=(10,1)), gka.Input(key='kayitsilkaynagi'), gka.Text('Yayımcı', s=(10,1)), gka.Input(key='kayitsilyayimci')],
-                  [gka.Text('Türü', s=(10,1)), gka.Input(key='kayitsilturu'), gka.Text('Raf Kodu', s=(10,1)), gka.Input(key='kayitsildolapkodu')],
-                  [gka.Text('Ek Nitelikler', s=(10,1)), gka.Multiline(s=(103,5),  key='kayitsilnitelikleri')],
-                  [gka.Table([], ['Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu', 'Ek Nitelikler'], num_rows=20, key='kayitsilsorgu', def_col_width=13, auto_size_columns=False, enable_events=True)],
-                  [gka.Output(s=(117,15), key='kayitsildetay')],
+kayitsilduzen = [[gka.Text('Kayıt No.', s=(10,1)), gka.Input(key='kayitsilbarkod', s=(48,1)), gka.Text('Adı', s=(10,1)), gka.Input(key='kayitsiladi', s=(48,1))],
+                  [gka.Text('Yazarı', s=(10,1)), gka.Input(key='kayitsilkaynagi', s=(48,1)), gka.Text('Yayımcı', s=(10,1)), gka.Input(key='kayitsilyayimci', s=(48,1))],
+                  [gka.Text('Türü', s=(10,1)), gka.Input(key='kayitsilturu', s=(48,1)), gka.Text('Raf Kodu', s=(10,1)), gka.Input(key='kayitsildolapkodu', s=(48,1))],
+                  [gka.Text('Ek Nitelikler', s=(10,1)), gka.Multiline(s=(110,5),  key='kayitsilnitelikleri')],
+                  [gka.Table([], ['Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu', 'Ek Nitelikler', 'Kütüphane'], num_rows=20, key='kayitsilsorgu', def_col_width=12, auto_size_columns=False, enable_events=True)],
+                  [gka.Output(s=(123,15), key='kayitsildetay')],
                   [gka.Button('Sorgula', key='kayitsilsorguonay'), gka.Button('Tüm Kütüphanelerde Sorgula', key='kayitsilistemcisorguonay'), gka.Button('Listedekileri Sil', key='kayitsiltopluonay'), gka.Button("Excel'e Aktar", key='kayitsilexcel'), gka.Text(key='kayitsildurum')]]
 
-kayitsilpencere = gka.Window('Kayıt Sil', kayitsilduzen, enable_close_attempted_event=True, finalize=True)
+kayitsilpencere = gka.Window('Kayıt Sil', kayitsilduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 kayitsilpencere.Hide()
 
@@ -600,7 +610,7 @@ def kayitsil(kayitlar, yonetici):
 
         if kayitsilfiil == 'kayitsiltopluonay' and yonetici == 1 and len(sorgusonuc) > 0:
 
-            if kayitsilfiil == 'kayitsiltopluonay' and istemcisorgu == False and gka.popup_yes_no(str(len(sorgusonuc)) + ' kayıt silinecek.\nEmin misiniz?') == 'Yes':
+            if kayitsilfiil == 'kayitsiltopluonay' and istemcisorgu == False and gka.popup_yes_no(str(len(sorgusonuc)) + ' kayıt silinecek.\nEmin misiniz?', keep_on_top=True, title='Onay') == 'Yes':
 
                 for i in sorgusonuc:
 
@@ -608,19 +618,21 @@ def kayitsil(kayitlar, yonetici):
 
                 kayitsilpencere['kayitsildurum'].update(str(len(sorgusonuc)) + ' adet kayit silindi.')
 
+                sorgusonuc = sorgula(kayitlar, kmt)
+
                 kayitsilpencere['kayitsilsorgu'].update(values=sorgusonuc)
 
         elif kayitsilfiil == 'kayitsiltopluonay' and yonetici != 1:
 
-            gka.popup('Yönetici yetkilerine sahip değilsiniz.', title='Hata')
+            gka.popup('Yönetici yetkilerine sahip değilsiniz.', keep_on_top=True , title='Hata')
 
         if kayitsilfiil == 'kayitsiltopluonay' and istemcisorgu == True:
 
-            gka.popup('Diğer istemcilerin kayıtları yalnızca okunabilir.', title='Hata')
+            gka.popup('Diğer istemcilerin kayıtları yalnızca okunabilir.', keep_on_top=True , title='Hata')
 
         if kayitsilfiil == 'kayitsilexcel':
 
-            exceleaktar(sorgusonuc, sutunlar=['Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu', 'Ek Nitelikler'])
+            exceleaktar(sorgusonuc, sutunlar=['Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu', 'Ek Nitelikler', 'Kütüphane'])
 
         if kayitsilfiil == 'kayitsilistemcisorguonay' and istemci == 1:
 
@@ -632,7 +644,15 @@ def kayitsil(kayitlar, yonetici):
 
                 for a in sorgula((i[1] + 'kayitlar'), kmt):
 
-                    sorgusonuc.append(a)
+                    kayitsiltempsatir = []
+
+                    for b in a:
+
+                        kayitsiltempsatir.append(b)
+
+                    kayitsiltempsatir.append(i[0])
+                    
+                    sorgusonuc.append(kayitsiltempsatir)
 
             kayitsilpencere['kayitsilsorgu'].update(values=sorgusonuc)
 
@@ -644,7 +664,6 @@ def kayitsil(kayitlar, yonetici):
 
             break
 
-
 ################################################################################################################################
 
 ### ÜYE KAYDET
@@ -652,13 +671,13 @@ def kayitsil(kayitlar, yonetici):
 ################################################################################################################################
 
 uyekaydetduzen = [[gka.Text('Üye No.', s=(10,1)), gka.Input(key='uyekaydetuyeno')],
-                [gka.Text('Üye Adı', s=(10,1)), gka.Input(key='uyekaydetuyeadi')],
-                [gka.Text('Üye Sınıfı', s=(10,1)), gka.Input(key='uyekaydetuyesinifi')],
-                [gka.Button('Ekle', key='uyekaydetekle'), gka.Button("Excel'den Aktar", key='uyekaydetexcel')],
-                [gka.Table([], ['Üye No.', 'Üye Adı-Soyadı', 'Üye Sınıfı'], num_rows=20, key='uyekaydetliste', def_col_width=30, auto_size_columns=True, enable_events=True)],
-                [gka.Button('Kaydet', key='uyekaydetonay'), gka.Button('Satırı Sil', key='uyekaydetlistesil'), gka.Text(key='uyekaydetdurum')]]
+                  [gka.Text('Üye Adı', s=(10,1)), gka.Input(key='uyekaydetuyeadi')],
+                  [gka.Text('Üye Sınıfı', s=(10,1)), gka.Input(key='uyekaydetuyesinifi')],
+                  [gka.Button('Ekle', key='uyekaydetekle'), gka.Button("Excel'den Aktar", key='uyekaydetexcel')],
+                  [gka.Table([], ['Üye No.', 'Üye Adı', 'Üye Sınıfı'], num_rows=20, key='uyekaydetliste', def_col_width=15, auto_size_columns=False, enable_events=True)],
+                  [gka.Button('Kaydet', key='uyekaydetonay'), gka.Button('Satırı Sil', key='uyekaydetlistesil'), gka.Text(key='uyekaydetdurum')]]
 
-uyekaydetpencere = gka.Window('Üye Kaydet', uyekaydetduzen, enable_close_attempted_event=True, finalize=True)
+uyekaydetpencere = gka.Window('Üye Kaydet', uyekaydetduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 uyekaydetpencere.Hide()
 
@@ -688,35 +707,39 @@ def uyekaydet(uyeler):
 
             uyekaydetuyesinifi = str(uyekaydetdeger['uyekaydetuyesinifi'])
 
-            if uyekaydetuyeno and uyekaydetuyeadi and uyekaydetuyesinifi:
+            if uyekaydetuyeno and uyekaydetuyeadi and uyekaydetuyesinifi and '"' not in uyekaydetuyeno and '"' not in uyekaydetuyeadi and '"' not in uyekaydetuyesinifi:
 
-                uyekaydetpensatir = []
+                    uyekaydetpensatir = []
 
-                uyekaydetnoeslesme = 0
+                    uyekaydetnoeslesme = 0
 
-                for i in [uyekaydetuyeno, uyekaydetuyeadi, uyekaydetuyesinifi]:
+                    for i in [uyekaydetuyeno, uyekaydetuyeadi, uyekaydetuyesinifi]:
 
-                    uyekaydetpensatir.append(i)
+                        uyekaydetpensatir.append(i)
 
-                for i in range(0, len(uyekaydetpenliste)):
+                    for i in range(0, len(uyekaydetpenliste)):
 
-                    if uyekaydetpenliste[i][0] == uyekaydetuyeno:
+                        if uyekaydetpenliste[i][0] == uyekaydetuyeno:
 
-                        uyekaydetnoeslesme += 1
+                            uyekaydetnoeslesme += 1
 
-                if uyekaydetnoeslesme > 0 or mevcutmu(uyeler, ('uyeno="' + str(uyekaydetuyeno) + '"')):
+                    if uyekaydetnoeslesme > 0 or mevcutmu(uyeler, ('uyeno="' + str(uyekaydetuyeno) + '"')):
 
-                    gka.popup(uyekaydetuyeno + ' No.lu üye zaten kaydedilmiş.\nÜye No. eşsiz olmalıdır.', title='Hata')
+                        gka.popup(uyekaydetuyeno + ' No.lu üye zaten kaydedilmiş.\nÜye No. eşsiz olmalıdır.', keep_on_top=True , title='Hata')
 
-                else:
+                    else:
 
-                    uyekaydetpenliste.append(uyekaydetpensatir)
+                        uyekaydetpenliste.append(uyekaydetpensatir)
 
-                uyekaydetpencere['uyekaydetliste'].update(values=uyekaydetpenliste)
+                    uyekaydetpencere['uyekaydetliste'].update(values=uyekaydetpenliste)
+
+            elif uyekaydetuyeno and uyekaydetuyeadi and uyekaydetuyesinifi and '"' in uyekaydetuyeno or '"' in uyekaydetuyeadi or '"' in uyekaydetuyesinifi:
+
+                gka.popup('Geçersiz karakter kullandınız.', keep_on_top=True , title='Hata')
 
             else:
 
-                gka.popup('Boş alan kalamaz!', title='Hata')
+                gka.popup('Boş alan kalamaz!', keep_on_top=True , title='Hata')
 
         if uyekaydetfiil == 'uyekaydetonay' and len(uyekaydetpenliste) > 0:
                 
@@ -730,7 +753,7 @@ def uyekaydet(uyeler):
 
         elif uyekaydetfiil == 'uyekaydetonay':
 
-            gka.popup('Kaydınız zaten işlendi veya kayıt yapmadınız.', title='Hata')
+            gka.popup('Kaydınız zaten işlendi veya kayıt yapmadınız.', keep_on_top=True , title='Hata')
 
         if uyekaydetfiil == 'uyekaydetexcel':
 
@@ -742,7 +765,7 @@ def uyekaydet(uyeler):
 
             uyekaydetlistesecilen = uyekaydetdeger['uyekaydetliste'][0]
 
-        if uyekaydetfiil == 'uyekaydetlistesil' and uyekaydetlistesecilen != -1 and gka.popup_yes_no(str(uyekaydetpenliste[uyekaydetlistesecilen][0]) + ' No.lu üye ön kayıt tablosundan silinecek.\nOnaylıyor musunuz?') == 'Yes':
+        if uyekaydetfiil == 'uyekaydetlistesil' and uyekaydetlistesecilen != -1 and gka.popup_yes_no(str(uyekaydetpenliste[uyekaydetlistesecilen][0]) + ' No.lu üye ön kayıt tablosundan silinecek.\nOnaylıyor musunuz?', keep_on_top=True, title='Onay') == 'Yes':
         
             uyekaydetpenliste.pop(uyekaydetlistesecilen)
 
@@ -756,17 +779,17 @@ def uyekaydet(uyeler):
 
 ################################################################################################################################
 
-uyesilduzen = [[gka.Text('Üye No.', s=(10,1)), gka.Input(key='uyesiluyeno')],
-            [gka.Text('Üye Adı', s=(10,1)), gka.Input(key='uyesiladisoyadi')],
-            [gka.Text('Üye Sınıfı', s=(10,1)), gka.Input(key='uyesilsinifi')],
-            [gka.Table([], ['Üye No.', 'Üye Adı-Soyadı', 'Üye Sınıfı', 'Üye Kayıt Yeri'], num_rows=20, key='uyesilliste', def_col_width=30, auto_size_columns=True)],
-            [gka.Button('Sorgula', key='uyesilsorguonay'), gka.Button('Listedekileri Sil', key='uyesiltopluonay'), gka.Button("Excel'e Aktar", key='uyesilexcel'), gka.Text(key='uyesildurum')]]
+uyesilduzen = [[gka.Text('Üye No.', s=(10,1)), gka.Input(key='uyesiluyeno', s=(70,1))],
+            [gka.Text('Üye Adı', s=(10,1)), gka.Input(key='uyesiladisoyadi', s=(70,1))],
+            [gka.Text('Üye Sınıfı', s=(10,1)), gka.Input(key='uyesilsinifi', s=(70,1))],
+            [gka.Table([], ['Üye No.', 'Üye Adı-Soyadı', 'Üye Sınıfı', 'Kütüphane'], num_rows=20, key='uyesilsorgu', def_col_width=16, auto_size_columns=False)],
+            [gka.Button('Sorgula', key='uyesilsorguonay'), gka.Button('Tüm Kütüphanelerde Sorgula', key='uyesilistemcisorguonay'), gka.Button('Listedekileri Sil', key='uyesiltopluonay'), gka.Button("Excel'e Aktar", key='uyesilexcel'), gka.Text(key='uyesildurum')]]
 
-uyesilpencere = gka.Window('Üye Sil', uyesilduzen, enable_close_attempted_event=True, finalize=True)
+uyesilpencere = gka.Window('Üye Sil', uyesilduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 uyesilpencere.Hide()
 
-def uyesil(uyeler, emanet, yonetici):
+def uyesil(uyeler, yonetici):
 
     uyesorgusonuc = []
 
@@ -802,49 +825,77 @@ def uyesil(uyeler, emanet, yonetici):
 
         if uyesilfiil == 'uyesilsorguonay':
 
-            tabloliste = []
+            istemcisorgu = False
 
             uyesorgusonuc = sorgula(uyeler, kmt)
 
-            for istemciadi in istemcilistesi:
+            uyesilpencere['uyesilsorgu'].update(values=uyesorgusonuc)
 
-                istemcidensorgu = sorgula(istemciadi[1] + 'uyeler', kmt)
+            uyesilpencere['uyesildurum'].update(str(len(uyesorgusonuc)) + ' kayıt listelendi.')
 
-                for i in istemcidensorgu:
+        if uyesilfiil == 'uyesilsorgu':
 
-                    temptablo = list(i)
+            multilinetemp = ''''''
 
-                    temptablo.append(istemciadi[0])
+            secilensatir = uyesorgusonuc[uyesildeger['uyesilsorgu'][0]]
 
-                    tabloliste.append(temptablo)
+            for i in range(7):
 
-            uyesilpencere['uyesilliste'].update(values=tabloliste)
+                baslikliste = ['Üye No.', '\nÜye Adı: ', '\nÜye Sınıfı: ']
 
-            uyesilpencere['uyesildurum'].update(str(len(tabloliste)) + ' kayıt listelendi.')
+                multilinetemp += (baslikliste[i] + secilensatir[i])
+
+            uyesilpencere['uyesildetay'].update(multilinetemp)
 
         if uyesilfiil == 'uyesiltopluonay' and yonetici == 1 and len(uyesorgusonuc) > 0:
 
-            if uyesilfiil == 'uyesiltopluonay' and gka.popup_yes_no(str(len(uyesorgusonuc)) + ' kayıt silinecek.\nEmin misiniz?') == 'Yes':
+            if uyesilfiil == 'uyesiltopluonay' and istemcisorgu == False and gka.popup_yes_no(str(len(uyesorgusonuc)) + ' kayıt silinecek.\nEmin misiniz?', keep_on_top=True, title='Onay') == 'Yes':
 
                 for i in uyesorgusonuc:
 
-                    sil(emanet, ('uyeno="' + i[0] + '"'))
-
                     sil(uyeler, ('uyeno="' + i[0] + '"'))
 
-                uyesilpencere['uyesildurum'].update(str(len(uyesorgusonuc)) + ' adet kayıt silindi.')
+                uyesilpencere['uyesildurum'].update(str(len(uyesorgusonuc)) + ' adet kayit silindi.')
 
                 uyesorgusonuc = sorgula(uyeler, kmt)
 
-                uyesilpencere['uyesilliste'].update(values=uyesorgusonuc)
+                uyesilpencere['uyesilsorgu'].update(values=uyesorgusonuc)
 
         elif uyesilfiil == 'uyesiltopluonay' and yonetici != 1:
 
-            gka.popup('Yönetici yetkilerine sahip değilsiniz.', title='Hata')
+            gka.popup('Yönetici yetkilerine sahip değilsiniz.', keep_on_top=True , title='Hata')
+
+        if uyesilfiil == 'uyesiltopluonay' and istemcisorgu == True:
+
+            gka.popup('Diğer istemcilerin kayıtları yalnızca okunabilir.', keep_on_top=True , title='Hata')
 
         if uyesilfiil == 'uyesilexcel':
 
-            exceleaktar(uyesorgusonuc, sutunlar=['Üye No.', 'Üye Adı-Soyadı', 'Üye Sınıfı', 'Üye Kayıt Yeri'])
+            exceleaktar(uyesorgusonuc, sutunlar=['Üye No.', 'Üye Adı-Soyadı', 'Üye Sınıfı', 'Kütüphane'])
+
+        if uyesilfiil == 'uyesilistemcisorguonay' and istemci == 1:
+
+            uyesorgusonuc = []
+
+            istemcisorgu = True
+
+            for i in istemcilistesi:
+
+                for a in sorgula((i[1] + 'uyeler'), kmt):
+
+                    uyesiltempsatir = []
+
+                    for b in a:
+
+                        uyesiltempsatir.append(b)
+
+                    uyesiltempsatir.append(i[0])
+                    
+                    uyesorgusonuc.append(uyesiltempsatir)
+
+            uyesilpencere['uyesilsorgu'].update(values=uyesorgusonuc)
+
+            uyesilpencere['uyesildurum'].update(str(len(uyesorgusonuc)) + ' kayıt listelendi.')
 
         if uyesilfiil == gka.WINDOW_CLOSE_ATTEMPTED_EVENT:
 
@@ -865,7 +916,7 @@ kullaniciduzen = [[gka.Text('Kullanıcı Adı', s=(10,1)), gka.Input(key='kullan
                   [gka.Table([], ['Kullanıcı Adı', 'Kullanıcı Şifresi', 'Kullanıcı Rütbesi'], num_rows=20, key='kullaniciolusturliste', def_col_width=30, auto_size_columns=True, enable_events=True)],
                   [gka.Button('Kaydet', key='kullaniciolusturonay'), gka.Button('Satırı Sil', key='kullaniciolusturlistesil'), gka.Text(key='kullaniciolusturdurum')]]
 
-kullaniciolusturpencere = gka.Window('Kullanıcı Kaydet', kullaniciduzen, enable_close_attempted_event=True, finalize=True)
+kullaniciolusturpencere = gka.Window('Kullanıcı Kaydet', kullaniciduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 kullaniciolusturpencere.Hide()
 
@@ -890,34 +941,40 @@ def kullaniciolustur(kullanicilar):
             kullaniciolusturyetki = str(kullaniciolusturdeger['kullaniciolusturyetki'])
 
             if kullaniciolusturadi and kullaniciolustursifre and kullaniciolusturyetki:
+                    
+                if '"' not in kullaniciolusturadi and '"' not in kullaniciolustursifre:
 
-                kullaniciolusturpensatir = []
+                    kullaniciolusturpensatir = []
 
-                kullaniciolusturnoeslesme = 0
+                    kullaniciolusturnoeslesme = 0
 
-                for i in [kullaniciolusturadi, kullaniciolustursifre, kullaniciolusturyetki]:
+                    for i in [kullaniciolusturadi, kullaniciolustursifre, kullaniciolusturyetki]:
 
-                    kullaniciolusturpensatir.append(i)
+                        kullaniciolusturpensatir.append(i)
 
-                for i in range(0, len(kullaniciolusturpenliste)):
+                    for i in range(0, len(kullaniciolusturpenliste)):
 
-                    if kullaniciolusturpenliste[i][0] == kullaniciolusturadi:
+                        if kullaniciolusturpenliste[i][0] == kullaniciolusturadi:
 
-                        kullaniciolusturnoeslesme += 1
+                            kullaniciolusturnoeslesme += 1
 
-                if kullaniciolusturnoeslesme > 0 or mevcutmu(kullanicilar, ('kullaniciadi="' + str(kullaniciolusturadi) + '"')):
+                    if kullaniciolusturnoeslesme > 0 or mevcutmu(kullanicilar, ('kullaniciadi="' + str(kullaniciolusturadi) + '"')):
 
-                    gka.popup(kullaniciolusturadi + ' adlı kullanıcı zaten oluşturulmuş.\nKullanıcı Adı eşsiz olmalıdır.', title='Hata')
+                        gka.popup(kullaniciolusturadi + ' adlı kullanıcı zaten oluşturulmuş.\nKullanıcı Adı eşsiz olmalıdır.', keep_on_top=True , title='Hata')
 
-                else:
+                    else:
 
-                    kullaniciolusturpenliste.append(kullaniciolusturpensatir)
+                        kullaniciolusturpenliste.append(kullaniciolusturpensatir)
 
-                kullaniciolusturpencere['kullaniciolusturliste'].update(values=kullaniciolusturpenliste)
+                    kullaniciolusturpencere['kullaniciolusturliste'].update(values=kullaniciolusturpenliste)
+
+                elif '"' in kullaniciolusturadi or '"' in kullaniciolustursifre:
+
+                    gka.popup('Geçersiz karakter kullandınız.', keep_on_top=True , title='Hata')
 
             else:
 
-                gka.popup('Boş alan kalamaz!', title='Hata')
+                gka.popup('Boş alan kalamaz!', keep_on_top=True , title='Hata')
 
         if kullaniciolusturfiil == 'kullaniciolusturonay' and len(kullaniciolusturpenliste) > 0:
                 
@@ -931,13 +988,13 @@ def kullaniciolustur(kullanicilar):
 
         elif kullaniciolusturfiil == 'kullaniciolusturonay':
 
-            gka.popup('Kaydınız zaten işlendi veya kayıt yapmadınız.', title='Hata')
+            gka.popup('Kaydınız zaten işlendi veya kayıt yapmadınız.', keep_on_top=True , title='Hata')
 
         if kullaniciolusturfiil == 'kullaniciolusturliste':
 
             kullaniciolusturlistesecilen = kullaniciolusturdeger['kullaniciolusturliste'][0]
 
-        if kullaniciolusturfiil == 'kullaniciolusturlistesil' and kullaniciolusturlistesecilen != -1 and gka.popup_yes_no(str(kullaniciolusturpenliste[kullaniciolusturlistesecilen][0]) + ' adlı kullanıcı ön kayıt tablosundan silinecek.\nOnaylıyor musunuz?') == 'Yes':
+        if kullaniciolusturfiil == 'kullaniciolusturlistesil' and kullaniciolusturlistesecilen != -1 and gka.popup_yes_no(str(kullaniciolusturpenliste[kullaniciolusturlistesecilen][0]) + ' adlı kullanıcı ön kayıt tablosundan silinecek.\nOnaylıyor musunuz?', keep_on_top=True, title='Onay') == 'Yes':
             
             kullaniciolusturpenliste.pop(kullaniciolusturlistesecilen)
 
@@ -963,7 +1020,7 @@ kullanicisilduzen = [[gka.Text('Kullanıcı Adı', s=(10,1)), gka.Input(key='kul
                      [gka.Table([], ['Kullanıcı Adı', 'Kullanıcı Şifresi', 'Kullanıcı Yetkileri'], num_rows=20, key='kullanicisilliste', def_col_width=30, auto_size_columns=True)],
                      [gka.Button('Sorgula', key='kullanicisilsorguonay'), gka.Button('Listedekileri Sil', key='kullanicisiltopluonay'), gka.Text(key='kullanicisildurum')]]
 
-kullanicisilpencere = gka.Window('Kullanıcı Sil', kullanicisilduzen, enable_close_attempted_event=True, finalize=True)
+kullanicisilpencere = gka.Window('Kullanıcı Sil', kullanicisilduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 kullanicisilpencere.Hide()
 
@@ -1011,7 +1068,7 @@ def kullanicisil(kullanicilar):
 
         if kullanicisilfiil == 'kullanicisiltopluonay' and len(kullanicisorgusonuc) > 0:
 
-            if kullanicisilfiil == 'kullanicisiltopluonay' and gka.popup_yes_no(str(len(kullanicisorgusonuc)) + ' kayıt silinecek.\nEmin misiniz?') == 'Yes':
+            if kullanicisilfiil == 'kullanicisiltopluonay' and gka.popup_yes_no(str(len(kullanicisorgusonuc)) + ' kayıt silinecek.\nEmin misiniz?', keep_on_top=True, title='Onay') == 'Yes':
 
                 for i in kullanicisorgusonuc:
 
@@ -1021,7 +1078,7 @@ def kullanicisil(kullanicilar):
 
                     mysqlsorgucalistir('INSERT INTO ' + kullanicilar + ' VALUES ("DEVKÜTÜP", "12345", "Yönetici");')
 
-                    gka.popup('Kullanıcıların tamamını sildiniz.\nProgramın kilitlenmesini önlemek için varsayılan kullanıcı,\nKullanıcı Adı: DEVKÜTÜP\nŞifre: 12345\nYetkiler: Yönetici\noluşturuldu.', title='Uyarı')
+                    gka.popup('Kullanıcıların tamamını sildiniz.\nProgramın kilitlenmesini önlemek için varsayılan kullanıcı,\nKullanıcı Adı: DEVKÜTÜP\nŞifre: 12345\nYetkiler: Yönetici\noluşturuldu.', keep_on_top=True , title='Uyarı')
 
                 kullanicisilpencere['kullanicisildurum'].update(str(len(kullanicisorgusonuc)) + ' adet kayıt silindi.')
 
@@ -1048,7 +1105,7 @@ emanetalduzen = [[gka.Text('Üye No.', s=(10,1)), gka.Input(key='emanetaluyeno',
                  [gka.Table([], ['Üye No.', 'Üye Adı', 'Üye Sınıfı.', 'Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu'], num_rows=20, key='emanetalsorgu', def_col_width=13, auto_size_columns=False, enable_events=True)],
                  [gka.Button('Sorgula', key='emanetalsorguonay'), gka.Button('Seçilen Kaydı Teslim Al', key='emanetalonay'), gka.Button("Excel'e Aktar", key='emanetalexcel'), gka.Text(key='emanetaldurum')]]
 
-emanetalpencere = gka.Window('Teslim Al', emanetalduzen, enable_close_attempted_event=True, finalize=True)
+emanetalpencere = gka.Window('Teslim Al', emanetalduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 emanetalpencere.Hide()
 
@@ -1134,7 +1191,7 @@ def emanetal(emanet):
 
             secilensatir = emanetalsorgusonuc[emanetaldeger['emanetalsorgu'][0]]
 
-        if emanetalfiil == 'emanetalonay' and secilensatir and gka.popup_yes_no('Üye No. ' + secilensatir[0] + '\nÜye Adı: ' + secilensatir[1] + 'Yukarıda bilgileri verilen üyeden\n' + secilensatir[3] + ' No.lu\n' + secilensatir[4] + ' adlı kayıt teslim alınacaktır.\nOnaylıyor musunuz?') == 'Yes':
+        if emanetalfiil == 'emanetalonay' and secilensatir and gka.popup_yes_no('Üye No. ' + secilensatir[0] + '\nÜye Adı: ' + secilensatir[1] + 'Yukarıda bilgileri verilen üyeden\n' + secilensatir[3] + ' No.lu\n' + secilensatir[4] + ' adlı kayıt teslim alınacaktır.\nOnaylıyor musunuz?', keep_on_top=True, title='Onay') == 'Yes':
 
             sil(emanet, ('kayitno="' + secilensatir[3] + '"'))
 
@@ -1146,7 +1203,7 @@ def emanetal(emanet):
 
         elif emanetalfiil == 'emanetalonay':
 
-            gka.popup('Lütfen listeden kayıt seçin.', title='Hata')
+            gka.popup('Lütfen listeden kayıt seçin.', keep_on_top=True , title='Hata')
 
         if emanetalfiil == 'emanetalexcel':
 
@@ -1172,7 +1229,7 @@ emanetverduzen = [[gka.Text('Üye No.', s=(10,1)), gka.Input(key='emanetveruyeno
                   [gka.Table([], ['Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu'], num_rows=12, key='emanetverkayitsorgu', def_col_width=15, auto_size_columns=False, enable_events=True)],
                   [gka.Button('Sorgula', key='emanetverkayitsorguonay'), gka.Button('Kayıt Seç', key='emanetverkayitsec'), gka.Text('Gün Sayısı', s=(10,1)), gka.Input(key='emanetvergunsayisi', s=(5,1)), gka.Button('ONAYLA', key='emanetveronay'), gka.Text(key='emanetverkayitdurum')]]
 
-emanetverpencere = gka.Window('Emanet Ver', emanetverduzen, enable_close_attempted_event=True, finalize=True)
+emanetverpencere = gka.Window('Emanet Ver', emanetverduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 emanetverpencere.Hide()
 
@@ -1278,7 +1335,7 @@ def emanetver(kayitlar, uyeler, emanet):
 
         elif emanetverfiil == 'emanetverkayitsec':
 
-            gka.popup('Olmayan girdi seçilemez.', title='Hata')
+            gka.popup('Olmayan girdi seçilemez.', keep_on_top=True , title='Hata')
 
         if emanetverfiil == 'emanetveruyesorguonay':
 
@@ -1300,9 +1357,9 @@ def emanetver(kayitlar, uyeler, emanet):
 
         elif emanetverfiil == 'emanetveruyesec':
 
-            gka.popup('Olmayan girdi seçilemez.', title='Hata')
+            gka.popup('Olmayan girdi seçilemez.', keep_on_top=True , title='Hata')
 
-        if emanetverfiil == 'emanetveronay' and kayitbilgileri and uyebilgileri and emanetvergunsayisi and mevcutmu(emanet, 'kayitno="' + emanetverbarkod + '"') != True and gka.popup_yes_no(kayitbilgileri[1] + ' adlı kayıt,\n' + uyebilgileri[1] + ' adlı üyeye\nverilecektir.\nOnaylıyor musunuz?') == 'Yes':
+        if emanetverfiil == 'emanetveronay' and kayitbilgileri and uyebilgileri and emanetvergunsayisi and mevcutmu(emanet, 'kayitno="' + emanetverbarkod + '"') != True and gka.popup_yes_no(kayitbilgileri[1] + ' adlı kayıt,\n' + uyebilgileri[1] + ' adlı üyeye\nverilecektir.\nOnaylıyor musunuz?', keep_on_top=True , title='Bilgi') == 'Yes':
 
             templiste1 = []
 
@@ -1318,15 +1375,13 @@ def emanetver(kayitlar, uyeler, emanet):
 
             templiste1.append(str(emanetvergunsayisi))
 
-            gka.popup(str(templiste1))
-
             olustur(emanet, [templiste1])
 
-            gka.popup("İşlem başarılı.", title='Bilgi')
+            gka.popup("İşlem başarılı.", keep_on_top=True , title='Bilgi')
 
         elif emanetverfiil == 'emanetveronay':
 
-            gka.popup('Lütfen gerekliliklerin sağlandığından emin olun.', title='Hata')
+            gka.popup('Lütfen gerekliliklerin sağlandığından emin olun.', keep_on_top=True , title='Hata')
 
 ################################################################################################################################
 
@@ -1334,12 +1389,10 @@ def emanetver(kayitlar, uyeler, emanet):
 
 ################################################################################################################################
 
-from datetime import datetime
-
 emanetlisteduzen = [[gka.Table([], ['Üye No.', 'Üye Adı', 'Üye Sınıfı.', 'Kayıt No.', 'Adı', 'Yazarı', 'Yayımcı', 'Türü', 'Raf Kodu', 'Verildiği Zaman', 'Teslim Alınacak', 'Kalan Gün'], num_rows=20, key='emanetlistesorgu', def_col_width=13, auto_size_columns=False, enable_events=True)],
                     [gka.Button('Güncelle', key='emanetlisteguncelle'), gka.Button("Excel'e Aktar", key='emanetlisteexcel'), gka.Text(key='emanetlistedurum')]]
 
-emanetlistepencere = gka.Window('Emanet Listesi', emanetlisteduzen, enable_close_attempted_event=True, finalize=True)
+emanetlistepencere = gka.Window('Emanet Listesi', emanetlisteduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 emanetlistepencere.Hide()
 
@@ -1409,7 +1462,7 @@ def emanetlistesi(emanet):
 
 sayaclarduzen = [[gka.Multiline(s=(30,4), key='sayaclar')]]
 
-sayaclarpencere = gka.Window('Sayaçlar', sayaclarduzen, enable_close_attempted_event=True, finalize=True)
+sayaclarpencere = gka.Window('Sayaçlar', sayaclarduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 sayaclarpencere.Hide()
 
@@ -1448,7 +1501,7 @@ def sayaclar(kayitlar, uyeler, kullanicilar, emanet):
 kayitexcelduzen = [[gka.Text("Excel'den Aktar")],
                    [gka.Input(key='kayitexcelgirdi'), gka.FileBrowse("Dosya Aç", file_types=(('Excel Dökümanı', '.xlsx'),)), gka.Button('İçe Aktar', key='kayitexceleaktaronay')]]
 
-kayitexcelpencere = gka.Window("Excel'den Aktar", kayitexcelduzen, enable_close_attempted_event=True, finalize=True)
+kayitexcelpencere = gka.Window("Excel'den Aktar", kayitexcelduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 kayitexcelpencere.Hide()
 
@@ -1486,7 +1539,7 @@ def exceldenaktar(eslesmekontrol, etkilesilenpenceretablo=None, tablo=None, biri
 
                     if len(satir) != birimsayisi:
 
-                        gka.popup('Açtığınız excel dosyasında boşluklar var. Lütfen boşluk bırakmayınız!', title='Hata')
+                        gka.popup('Açtığınız excel dosyasında boşluklar var. Lütfen boşluk bırakmayınız!', keep_on_top=True , title='Hata')
 
                         break
 
@@ -1500,7 +1553,7 @@ def exceldenaktar(eslesmekontrol, etkilesilenpenceretablo=None, tablo=None, biri
 
                     if kayitexceleslesme > 0 or mevcutmu(tablo, ('kayitno="' + str(satir[0]) + '"')):
 
-                        gka.popup(satir[0] + ' No.lu kayit zaten oluşturulmuş.\nKayıt No. eşsiz olmalıdır.', title='Hata')
+                        gka.popup(satir[0] + ' No.lu kayit zaten oluşturulmuş.\nKayıt No. eşsiz olmalıdır.', keep_on_top=True , title='Hata')
 
                         break
 
@@ -1527,7 +1580,7 @@ def exceldenaktar(eslesmekontrol, etkilesilenpenceretablo=None, tablo=None, biri
 disaexcelduzen = [[gka.Text("Excel'e Aktar")],
                   [gka.Input(key='disaexcelgirdi'), gka.FileSaveAs("Kayıt Yeri Belirle", file_types=(('Excel Dökümanı', '.xlsx'),)), gka.Button('Dışa Aktar', key='disaexceleaktaronay')]]
 
-disaexcelpencere = gka.Window("Excel'e Aktar", disaexcelduzen, enable_close_attempted_event=True, finalize=True)
+disaexcelpencere = gka.Window("Excel'e Aktar", disaexcelduzen, enable_close_attempted_event=True, finalize=True, keep_on_top=True)
 
 disaexcelpencere.Hide()
 
@@ -1553,7 +1606,7 @@ def exceleaktar(aktarilacaktablo, sutunlar=None):
 
             df.to_excel(disaexcelgirdi)
 
-            gka.popup('Dosya ' + disaexcelgirdi + ' olarak kaydedildi.', title='Bilgi')
+            gka.popup('Dosya ' + disaexcelgirdi + ' olarak kaydedildi.', keep_on_top=True , title='Bilgi')
 
             disaexcelpencere.Hide()
 
@@ -1595,7 +1648,7 @@ if istemci == 1:
 
             if kapatmatercih == 1:
 
-                gka.popup('Program, yöneticiniz tarafından kapatılamayacak şekilde ayarlandı.', title='Hata')
+                gka.popup('Program, yöneticiniz tarafından kapatılamayacak şekilde ayarlandı.', keep_on_top=True , title='Hata')
 
             if kapatmatercih == 0:
 

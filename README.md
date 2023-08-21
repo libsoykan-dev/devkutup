@@ -1,5 +1,6 @@
 # DEVKÜTÜP
 Kütüphane otomasyon programı. Resmî ve şahsî kütüphaneler için tasarlanmıştır.
+
 - [Çoklu İstemci Ekranı](https://github.com/libsoykan-dev/devkutup#%C3%A7oklu-i%CC%87stemci-ekran%C4%B1-v200_20230406-ve-%C3%BCst%C3%BC)
 - [Giriş Ekranı](https://github.com/libsoykan-dev/devkutup#giri%C5%9F-ekran%C4%B1)
 - [Ana Ekran](https://github.com/libsoykan-dev/devkutup#ana-ekran)
@@ -8,6 +9,7 @@ Kütüphane otomasyon programı. Resmî ve şahsî kütüphaneler için tasarlan
 - [Kullanıcılar](https://github.com/libsoykan-dev/devkutup#kullan%C4%B1c%C4%B1lar)
 - [Yapılandırma](https://github.com/libsoykan-dev/devkutup#yap%C4%B1land%C4%B1rma-dosyas%C4%B1-devkutupconf)
 - [Lisans](https://github.com/libsoykan-dev/devkutup#lisans)
+- [Raporlar](https://github.com/libsoykan-dev/devkutup#raporlar)
 
 # Çoklu İstemci Ekranı (v2.00_20230406 ve üstü)
 ![resim](https://user-images.githubusercontent.com/103260281/230802018-0adb57da-b739-4e53-b2ae-30af3e693edb.png)
@@ -39,6 +41,10 @@ Silme işlemleri için de silmek istediğiniz değer(ler)i forma girip "Sorgula"
 MYSQL veri tabanında "<istemci adı>kullanicilar" olarak barındırılan veri tabanında kullaniciadi, sifre ve yetki olmak üzere 3 adet sütün kayıtlıdır. Bu sütünlardan ilk ikisi kullanıcı adı ve şifreyi barındırırken sonuncusu yani yetki sütunu kullanıcının yetkisini belirler. yetki sütununa "Yönetici, Görevli, Ziyaretçi" olmak üzere toplamda 3 adet yetki girişi yapılabilir.
 
 Yönetici tüm ekranlara erişebilirken Görevli sadece Emanet Alma ve Verme, Kaydetme ve Sorgulama gibi temel ekranlara erişebilir. Ziyaretçiler yalnızca kayıt sorgulayabilir. Bu yetki düzeylerinin erişim izinleri if koşullarındaki "yonetici" değişkeni Görevli, Yönetici ve Ziyaretçi için sırasıyla 0, 1 veya 2 şeklinde ayarlanarak değiştirilebilir. Varsayılan Kullanıcı Adı "DEVKÜTÜP", şifre ise "12345"tir. Eğer tüm kullanıcıları silerseniz program kilitlenmemek için varsayılan kullanıcıyı tekrar oluşturur.
+
+# Raporlama
+
+Emanet listesi ve sayaçlar mevcuttur. Temel ögelerin sayılması ve emanet verilen kayıtların düzenlenmesi için kullanılır.
 
 # Yapılandırma Dosyası (devkutup.conf)
 Bu dosya 2 bölüm içerir: mysql-giris ve diger

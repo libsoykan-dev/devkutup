@@ -32,9 +32,17 @@ Ana ekranda kayıt, üye, kullanıcı, emanet ve rapor işlemleri yer almaktadı
 
 Kayıt sekmelerinde kaydedilecek değerler girilerek "Ekle"ye tıklanır. Toplu kayıt için excel dosyalarını içe aktarabilirsiniz. Kaydetmeye karar verdiğinizde "Kaydet" butonuna tıklarsınız. Hatalı bir giriş yapıp "Ekle"ye tıkladığınızda hatalı satırı seçip "Satırı Sil" tıklayabilirsiniz. Ek niteliklere 32768 harfi geçmeyecek şekilde istediğiniz bilgiyi girebilirsiniz.
 # Kayıt Silme
-![resim](https://user-images.githubusercontent.com/103260281/230803840-3929de9a-2b00-4c14-900c-a682c851a488.png)
+![resim](https://github.com/libsoykan-dev/devkutup/assets/103260281/59ac0fad-b563-479d-a7e1-91777b4b06ef)
 
-Silme işlemleri için de silmek istediğiniz değer(ler)i forma girip "Sorgula"ya bastığınızda tablodaki veriler işlenir. "Listedekileri Sil" butonu tabloda bulunan ve yalnızca bulunduğunuz kurumun veri tabanına ait değerleri siler. Aynı durum üye silme işlemleri için de geçerlidir. Bu işlem geri alınamaz.
+Silme işlemleri için de silmek istediğiniz değer(ler)i forma girip "Sorgula"ya bastığınızda tablodaki veriler işlenir. "Listedekileri Sil" butonu tabloda bulunan ve yalnızca bulunduğunuz kurumun veri tabanına ait değerleri siler. Aynı durum üye silme işlemleri için de geçerlidir. Bu işlem geri alınamaz. Ayrıca diğer istemcilerle irtibatı sağlamak ve üyeleri kaydın bulunduğu kütüphaneye yönlendirmek için "tüm Kütüphanelerde Sorgula" butonu eklenmiştir.
+# Teslim Al
+![resim](https://github.com/libsoykan-dev/devkutup/assets/103260281/51c86c0f-f70c-409f-afc4-5dbec29b1332)
+
+Bu ekranda görülen boşluklarda filtreleme yapabilirsiniz. Arama yapıp listeden kayıt seçtikten sonra "Seçilen Kaydı Teslim Al" butonuna tıklamanız yeterli.
+# Emanet Ver
+![resim](https://github.com/libsoykan-dev/devkutup/assets/103260281/1f7810d3-aa44-4bea-af6e-65cefbf20b7e)
+
+Bu ekranda 2 arama tablosundan ilkinde üye bilgileri ikincisinde kitap bilgileri her tablonun seçme butonuyla seçilir. Daha sonra gün sayısı yazan boşluğa gün sayısı girilir ve "ONAYLA" tıklanır.
 # Kullanıcılar
 ![resim](https://user-images.githubusercontent.com/103260281/230803897-44970121-fa8c-4950-b5e4-b9b7e0d16dbd.png)
 
